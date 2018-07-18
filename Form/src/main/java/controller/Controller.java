@@ -20,11 +20,12 @@ public class Controller {
 
 
 
-    public void start(){
+    public void start() {
         Scanner scanner = new Scanner(System.in);
 
 
         //Enter data and save to entity
+
 
         //Name input
         view.printer(view.USER_NAME_INPUT);
@@ -33,6 +34,9 @@ public class Controller {
         //Surname input
         view.printer(view.USER_SURNAME_INPUT);
         userEntity.setSURNAME(checkWithRegExp(RegExpSamples.NAME_REG_EXP,scanner));
+
+
+        loginAdd(scanner);
 
 
         //Phone number input
@@ -48,20 +52,27 @@ public class Controller {
 
 
         view.printer(userEntity.toString());
+    }
 
-
+    private void loginAdd(Scanner scanner) {
+        view.printer(view.USER_LOGIN);
+        try {
+            userEntity.setLOGIN(checkWithRegExp(RegExpSamples.NAME_REG_EXP,scanner));
+        }  catch (Exception e) {
+            e.printStackTrace();
+            view.printer("login exist! change login");
+            loginAdd(scanner);
+        }
     }
 
     private String checkWithRegExp(String regExp,Scanner scanner) {
-        String temp="";
-        while (true){
-            temp=scanner.next();
-          if(!temp.matches(regExp)){
-              view.printer(view.ERROR);
-          }else break;
+        String res;
+
+        while( !(scanner.hasNext() &&
+                (res = scanner.next()).matches(regExp))) {
+            view.printer(view.CORRECTDATA);
         }
-        view.printer(view.CORRECTDATA);
-        return temp;
+        return res;
     }
 
 }

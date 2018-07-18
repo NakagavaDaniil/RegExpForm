@@ -1,14 +1,40 @@
 package model.Entity;
 
+import controller.MyExapion;
+
 public class UserEntity {
+
+    private String[] DATA_BASE_EMULATOR={"Mark","Nagibator228","soulEater2010","Vanek"};
+
     public String NAME;
     public String SURNAME;
     public String SURNAMENAME;
+    public String LOGIN;
     public String EMAIL;
     public String PHONENUMBER;
 
 
-    public UserEntity() {
+    public UserEntity()  {
+    }
+
+    public boolean checkData(String data)throws Exception {
+        for (String el:DATA_BASE_EMULATOR){
+            if(el.equals(data)){
+                throw new MyExapion();
+            }
+        }
+        return true;
+    }
+
+    public String getLOGIN() {
+        return LOGIN;
+    }
+
+    public void setLOGIN(String LOGIN) throws Exception {
+
+            checkData(LOGIN);
+
+        this.LOGIN = LOGIN;
     }
 
     public String getNAME() {
@@ -57,6 +83,7 @@ public class UserEntity {
         return "Name:"+NAME+"\n"+
                 "Surname:"+SURNAME+"\n"+
                 "Full name:"+SURNAMENAME+"\n"+
+                "Login"+LOGIN+
                 "@email:"+EMAIL+"\n"+
                 "Phone number:"+PHONENUMBER;
     }
